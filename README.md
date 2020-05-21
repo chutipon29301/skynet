@@ -8,7 +8,7 @@ Serverless Consortium Facilitator BOT
 
 ```
 git clone https://github.com/chutipon29301/skynet.git
-cd ../skynet
+cd ./skynet
 docker-compose up
 ```
 
