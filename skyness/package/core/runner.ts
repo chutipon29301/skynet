@@ -1,14 +1,14 @@
 import {
   serve,
-  Server,
+  Server as DenoServer,
   ServerRequest,
 } from "https://deno.land/std/http/server.ts";
 import { Application } from "./module.ts";
 
-export class ApplicationRunner {
+export class Server {
   private application: Application;
   private port: number = 3000;
-  private server?: Server;
+  private server?: DenoServer;
 
   constructor(constructor: { new (...args: any[]): {} }) {
     this.application = new constructor() as Application;
