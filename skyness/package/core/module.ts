@@ -1,9 +1,28 @@
-export function Module(option: any) {
-    console.log('-- decorator factory invoked --');
-    return function (constructor: Function) {
-        console.log('-- decorator invoked --');
+import { Router } from "./router.ts";
 
-        console.log('option:',option);
-    }
+export interface Application {
+  routers: Router[];
 }
 
+export interface Module {}
+
+export interface ModulesOptions {
+  services?: any[];
+  routers?: any[];
+  imports?: any[];
+  exports?: any[];
+}
+
+export function Module(option: ModulesOptions) {
+  let routers: Router[] = [];
+  if (option.routers) {
+    routers = option.routers.map((o) => new o());
+  }
+  return function classDecorator<T extends { new (...args: any[]): {} }>(
+    constructor: T
+  ): { new (...args: any[]): Application } {
+    return class extends constructor implements Application {
+      routers = routers;
+    };
+  };
+}
