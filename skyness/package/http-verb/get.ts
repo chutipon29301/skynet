@@ -5,12 +5,11 @@ export interface Get {
   export interface GetConfig {}
   
   export function Get(path: string, config?: GetConfig) {
-    return function classDecorator<T extends { new (...args: any[]): {} }>(
-      constructor: T
-    ): { new (...args: any[]): Get } {
-      return class extends constructor implements Get {
-        path = path;
-      };
+    return async function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("Path:",path)
+        console.log("Target:",target)
+        console.log("Proprety Key:",propertyKey)
+        console.log("Descriptor:", await descriptor.value());
     };
   }
   
